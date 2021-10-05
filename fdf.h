@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:44:34 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/04 17:34:26 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/05 18:31:32 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #define FDF_H
 #define HEIGHT 500
 #define WIDTH 500
-#define FACTOR 10
+#define FACTOR 1
+#define ANGLE 0.523599
 #include <mlx.h>
 typedef struct	s_data {
 	void		*img;
