@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:53:30 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/04 15:38:57 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 07:46:37 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	horizontal_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 		xi = -1;
 	while (1)
 	{
-		my_mlx_pixel_put(data, x, a.y, color);
+		if (a.y > 0 && a.y < data->s_height && x > 0 && x < data->s_width)
+			my_mlx_pixel_put(data, x, a.y, color);
 		if (x == b.x)
 			break;
 		x += xi;
@@ -47,7 +48,8 @@ void	vertical_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 		yi = -1;
 	while (1)
 	{
-		my_mlx_pixel_put(data, a.x, y, color);
+		if (a.x > 0 && a.x < data->s_width && y > 0 && y < data->s_height)
+			my_mlx_pixel_put(data, a.x, y, color);
 		if (y == b.y)
 			break;
 		y += yi;
@@ -76,7 +78,8 @@ void	brasenham_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 	err = dx + dy;
     while (1)
     {
-	    my_mlx_pixel_put(data, a.x, a.y, color);
+		if (a.x > 0 && a.x < data->s_width && a.y > 0 && a.y < data->s_height)
+	    	my_mlx_pixel_put(data, a.x, a.y, color);
         if (a.x == b.x && a.y == b.y)
 			break;
         e2 = 2*err;

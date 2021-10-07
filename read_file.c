@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:58:27 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/04 15:31:57 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 06:57:50 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,25 +124,6 @@ t_matrix	*init_mat()
 	return (mat);
 }
 
-void	debug_print_matrix(t_matrix *mat)
-{
-	int i;
-	int j;
-
-	while (i < mat->h_matrix)
-	{
-		j = 0;
-		while (j < mat->w_matrix)
-		{
-			ft_putnbr_fd(mat->matrix[i][j], 1);
-			ft_putchar_fd(' ', 1);
-			j++;
-		}
-		ft_putchar_fd('\n', 1);
-		i++;
-	}
-}
-
 t_matrix	*file_to_matrix(char *file_path)
 {
 	t_matrix *mat;
@@ -151,6 +132,5 @@ t_matrix	*file_to_matrix(char *file_path)
 	count_matrix(file_path, mat);
 	alloc_matrix(file_path, mat);
 	fill_matrix(file_path, mat);
-	debug_print_matrix(mat);
 	return (mat);
 }

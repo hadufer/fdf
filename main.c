@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:51:29 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/04 16:52:28 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 07:19:51 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,38 @@ int	handle_entry_fd(int argc, char **argv)
 	return (0);
 }
 
+int	render(t_data *img)
+{
+	mlx_destroy_image(img->mlx, img->img);
+	img->img = mlx_new_image(img->mlx, img->s_width, img->s_height);
+	matrix_draw(img);
+	mlx_put_image_to_window(img->mlx, img->win, img->img, 0, 0);
+	return (0);
+}
+
+
+
 int	main(int argc, char **argv)
 {
 	t_matrix	*mat;
-	void		*mlx;
-	void		*mlx_win;
 	t_data		img;
 
+	// init img
+	img.s_width = 500;
+	img.s_height = 500;
+	img.offset_x = 0;
+	img.offset_y = 0;
+	img.zoom = 1;
+	img.iso = 1;
 	handle_entry_fd(argc, argv);
 	mat = file_to_matrix(argv[1]);
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, WIDTH, HEIGHT, "fdf");
-	img.img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	img.mlx = mlx_init();
+	img.win = mlx_new_window(img.mlx, img.s_width, img.s_height, "fdf");
+	img.img = mlx_new_image(img.mlx, img.s_width, img.s_height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
-	matrix_draw(&img, mat);
-	mlx_clear_window(mlx, mlx_win);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	img.mat = mat;
+	mlx_hook(img.win, 2, 1L<<0, key_handle, &img);
+	mlx_loop_hook(img.mlx, render, &img);
+	mlx_loop(img.mlx);
 }
