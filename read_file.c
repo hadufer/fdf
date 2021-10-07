@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:58:27 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 08:44:42 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 15:18:44 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <errno.h>
 #include <string.h>
 #include "ft_printf.h"
+#include <stdio.h>
 
 void	count_matrix(char *file_path, t_matrix *mat)
 {
@@ -47,13 +48,11 @@ void	count_matrix(char *file_path, t_matrix *mat)
 			mat->w_matrix = i;
 		while (i >= 0)
 			free(line_cut[i--]);
-		j++;
 		line = get_next_line(fd);
-		while (i-- > 0)
-			free(line_cut[j]);
 		free(line_cut);
+		j++;
 	}
-	mat->h_matrix = j;
+	mat->h_matrix = --j;
 	close(fd);
 }
 
@@ -124,6 +123,26 @@ t_matrix	*init_mat()
 	return (mat);
 }
 
+void	debug_print_matrix(t_matrix *mat)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < mat->h_matrix)
+	{
+		j = 0;
+		while (j < mat->w_matrix)
+		{
+			ft_putnbr_fd(mat->matrix[i][j], 1);
+			ft_putchar_fd(' ', 1);
+			j++;
+		}
+		ft_putchar_fd('\n', 1);
+		i++;
+	}
+}
+
 t_matrix	*file_to_matrix(char *file_path)
 {
 	t_matrix *mat;
@@ -132,5 +151,6 @@ t_matrix	*file_to_matrix(char *file_path)
 	count_matrix(file_path, mat);
 	alloc_matrix(file_path, mat);
 	fill_matrix(file_path, mat);
+	debug_print_matrix(mat);
 	return (mat);
 }
