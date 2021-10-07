@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:58:27 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 15:18:44 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 15:23:51 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
-#include "ft_printf.h"
 #include <stdio.h>
 
 void	count_matrix(char *file_path, t_matrix *mat)
