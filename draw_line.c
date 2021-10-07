@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:53:30 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 07:46:37 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 08:49:19 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	vertical_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 
 void	brasenham_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 {
-    int dx;
-    int sx;
-    int dy;
-    int sy;
-    int err;
+	int dx;
+	int sx;
+	int dy;
+	int sy;
+	int err;
 	int e2;
 
 	if (a.x < b.x)
@@ -76,27 +76,27 @@ void	brasenham_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 	dx = abs(b.x - a.x);
 	dy = -abs(b.y - a.y);
 	err = dx + dy;
-    while (1)
-    {
+	while (1)
+	{
 		if (a.x > 0 && a.x < data->s_width && a.y > 0 && a.y < data->s_height)
-	    	my_mlx_pixel_put(data, a.x, a.y, color);
-        if (a.x == b.x && a.y == b.y)
+			my_mlx_pixel_put(data, a.x, a.y, color);
+		if (a.x == b.x && a.y == b.y)
 			break;
-        e2 = 2*err;
-        if (e2 >= dy)
-        {
+		e2 = 2 * err;
+		if (e2 >= dy)
+		{
 			err += dy;
-            a.x += sx;
+			a.x += sx;
 		}
-        if (e2 <= dx)
-        {
+		if (e2 <= dx)
+		{
 			err += dx;
-            a.y += sy;
+			a.y += sy;
 		}
 	}
 }
 
-void    draw_line(t_data *data, t_vec2 a, t_vec2 b, int color)
+void	draw_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 {
 	if (a.x == b.x)
 		vertical_line(data, a, b, color);

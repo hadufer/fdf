@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:44:34 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 08:26:23 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 09:10:32 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_data {
 	int			zoom;
 	int			offset_x;
 	int			offset_y;
+	long		draw_max_num;
 	int			iso;
 	t_matrix	*mat;
 }				t_data;
@@ -69,5 +70,8 @@ void			draw_ortho(t_data *data);
 void			draw_iso(t_data *data);
 int				matrix_draw(t_data *data);
 void			matrix_destroy(t_matrix *mat);
+int				matrix_biggest_z(t_matrix *mat);
 int				key_handle(int keycode, t_data *img);
+int				create_trgb(int t, int r, int g, int b);
+double			my_abs(double in);
 #endif

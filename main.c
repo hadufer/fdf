@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:51:29 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 07:19:51 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 09:00:30 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,14 @@ int	main(int argc, char **argv)
 	img.iso = 1;
 	handle_entry_fd(argc, argv);
 	mat = file_to_matrix(argv[1]);
+	img.mat = mat;
+	img.draw_max_num = matrix_biggest_z(img.mat);
+	ft_putnbr_fd(img.draw_max_num, 1);
 	img.mlx = mlx_init();
 	img.win = mlx_new_window(img.mlx, img.s_width, img.s_height, "fdf");
 	img.img = mlx_new_image(img.mlx, img.s_width, img.s_height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
-	img.mat = mat;
 	mlx_hook(img.win, 2, 1L<<0, key_handle, &img);
 	mlx_loop_hook(img.mlx, render, &img);
 	mlx_loop(img.mlx);
