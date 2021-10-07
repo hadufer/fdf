@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 13:13:48 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 07:24:34 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 08:14:47 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int key_handle(int keycode, t_data *img)
 	if (keycode == KEY_ESCAPE)
 	{
 		mlx_destroy_window(img->mlx, img->win);
+		matrix_destroy(img->mat);
 		exit(0);
 	}
 	else if (keycode == KEY_MINUS)

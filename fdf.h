@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:44:34 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 08:01:02 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 08:14:56 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ t_matrix		*file_to_matrix(char *file_path);
 void			draw_ortho(t_data *data);
 void			draw_iso(t_data *data);
 int				matrix_draw(t_data *data);
+void			matrix_destroy(t_matrix *mat);
 int				key_handle(int keycode, t_data *img);
 #endif
