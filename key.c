@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 13:13:48 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 08:14:47 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 08:29:00 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,23 @@
 #include <mlx.h>
 #include <stdlib.h>
 
-int key_handle(int keycode, t_data *img)
+static void	key_handle_transform(int keycode, t_data *img)
+{
+	if (keycode == KEY_PLUS)
+		img->zoom += 1;
+	else if (keycode == KEY_LEFT)
+		img->offset_x -= 1;
+	else if (keycode == KEY_RIGHT)
+		img->offset_x += 1;
+	else if (keycode == KEY_DOWN)
+		img->offset_y += 1;
+	else if (keycode == KEY_UP)
+		img->offset_y -= 1;
+	else if (keycode == KEY_1)
+		img->iso ^= 0x1;
+}
+
+int	key_handle(int keycode, t_data *img)
 {
 	if (keycode == KEY_ESCAPE)
 	{
@@ -31,17 +47,7 @@ int key_handle(int keycode, t_data *img)
 		else
 			img->zoom -= 1;
 	}
-	else if (keycode == KEY_PLUS)
-		img->zoom += 1;
-	else if (keycode == KEY_LEFT)
-		img->offset_x -= 1;
-	else if (keycode == KEY_RIGHT)
-		img->offset_x += 1;
-	else if (keycode == KEY_DOWN)
-		img->offset_y += 1;
-	else if (keycode == KEY_UP)
-		img->offset_y -= 1;
-	else if (keycode == KEY_1)
-		img->iso ^= 0x1;
+	else
+		key_handle_transform(keycode, img);
 	return (0);
 }
