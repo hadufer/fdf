@@ -6,31 +6,31 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:44:34 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 08:14:56 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/07 08:26:23 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
-#define FDF_H
-#define ANGLE 0.523599
-#define KEY_ESCAPE 65307
-#define KEY_MINUS 45
-#define KEY_PLUS 61
-#define KEY_LEFT 65361
-#define KEY_RIGHT 65363
-#define KEY_DOWN 65364
-#define KEY_UP 65362
-#define KEY_1 49
-#include <mlx.h>
+# define FDF_H
+# define ANGLE 0.523599
+# define KEY_ESCAPE 65307
+# define KEY_MINUS 45
+# define KEY_PLUS 61
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_DOWN 65364
+# define KEY_UP 65362
+# define KEY_1 49
+# include <mlx.h>
 
-typedef struct	s_matrix
+typedef struct s_matrix
 {
 	int	h_matrix;
 	int	w_matrix;
 	int	**matrix;
 }				t_matrix;
 
-typedef struct	s_data {
+typedef struct s_data {
 	void		*mlx;
 	void		*win;
 	void		*img;
@@ -47,13 +47,13 @@ typedef struct	s_data {
 	t_matrix	*mat;
 }				t_data;
 
-typedef struct	s_vec2
+typedef struct s_vec2
 {
 	int			x;
 	int			y;
 }				t_vec2;
 
-typedef struct	s_vec3
+typedef struct s_vec3
 {
 	float		x;
 	float		y;
