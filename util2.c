@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx.c                                              :+:      :+:    :+:   */
+/*   util2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 12:03:21 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/08 07:30:26 by hadufer          ###   ########.fr       */
+/*   Created: 2021/10/08 07:33:19 by hadufer           #+#    #+#             */
+/*   Updated: 2021/10/08 07:33:26 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	create_trgb(int t, int r, int g, int b)
 {
-	char	*dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int *)dst = color;
+	return (t << 24 | r << 16 | g << 8 | b);
 }

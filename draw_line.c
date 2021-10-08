@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:53:30 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 08:49:19 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/08 06:57:09 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	horizontal_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 {
-	int x;
+	int	x;
 	int	xi;
 
 	x = a.x;
@@ -31,14 +31,14 @@ void	horizontal_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 		if (a.y > 0 && a.y < data->s_height && x > 0 && x < data->s_width)
 			my_mlx_pixel_put(data, x, a.y, color);
 		if (x == b.x)
-			break;
+			break ;
 		x += xi;
 	}
 }
 
 void	vertical_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 {
-	int y;
+	int	y;
 	int	yi;
 
 	y = a.y;
@@ -51,47 +51,47 @@ void	vertical_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 		if (a.x > 0 && a.x < data->s_width && y > 0 && y < data->s_height)
 			my_mlx_pixel_put(data, a.x, y, color);
 		if (y == b.y)
-			break;
+			break ;
 		y += yi;
 	}
 }
 
+static void	brasenham_init_iterators(t_vec2 a, t_vec2 b, int *sx, int *sy)
+{
+	if (a.x < b.x)
+		*sx = 1;
+	else
+		*sx = -1;
+	if (a.y < b.y)
+		*sy = 1;
+	else
+		*sy = -1;
+}
+
 void	brasenham_line(t_data *data, t_vec2 a, t_vec2 b, int color)
 {
-	int dx;
-	int sx;
-	int dy;
-	int sy;
-	int err;
-	int e2;
+	int	tab[6];
 
-	if (a.x < b.x)
-		sx = 1;
-	else
-		sx = -1;
-	if (a.y < b.y)
-		sy = 1;
-	else
-		sy = -1;
-	dx = abs(b.x - a.x);
-	dy = -abs(b.y - a.y);
-	err = dx + dy;
+	brasenham_init_iterators(a, b, &tab[1], &tab[3]);
+	tab[0] = abs(b.x - a.x);
+	tab[2] = -abs(b.y - a.y);
+	tab[4] = tab[0] + tab[2];
 	while (1)
 	{
 		if (a.x > 0 && a.x < data->s_width && a.y > 0 && a.y < data->s_height)
 			my_mlx_pixel_put(data, a.x, a.y, color);
 		if (a.x == b.x && a.y == b.y)
-			break;
-		e2 = 2 * err;
-		if (e2 >= dy)
+			break ;
+		tab[5] = 2 * tab[4];
+		if (tab[5] >= tab[2])
 		{
-			err += dy;
-			a.x += sx;
+			tab[4] += tab[2];
+			a.x += tab[1];
 		}
-		if (e2 <= dx)
+		if (tab[5] <= tab[0])
 		{
-			err += dx;
-			a.y += sy;
+			tab[4] += tab[0];
+			a.y += tab[3];
 		}
 	}
 }

@@ -6,7 +6,7 @@
 #    By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/08 11:44:42 by hadufer           #+#    #+#              #
-#    Updated: 2021/09/23 13:14:57 by hadufer          ###   ########.fr        #
+#    Updated: 2021/10/08 07:35:19 by hadufer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,16 @@ CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra -g
 
-SRCS = $(wildcard *.c)
+SRCS =	draw_line.c \
+		draw.c \
+		draw2.c \
+		key.c \
+		main.c \
+		mlx.c \
+		read_file.c \
+		util.c \
+		util2.c \
+
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c

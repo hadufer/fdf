@@ -6,21 +6,25 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:24:48 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 09:10:20 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/08 07:33:08 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
 #include <stdlib.h>
+#include <unistd.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <string.h>
+#include "ft_printf.h"
+#include "fdf.h"
 
 t_vec3	new_vec3(float x, float y, float z)
 {
-	t_vec3 out;
+	t_vec3	out;
 
 	out.x = x;
 	out.y = y;
 	out.z = z;
-
 	return (out);
 }
 
@@ -54,7 +58,7 @@ int	matrix_biggest_z(t_matrix *mat)
 
 	i = 0;
 	out = 0;
-	while(i < mat->h_matrix)
+	while (i < mat->h_matrix)
 	{
 		j = 0;
 		while (j < mat->w_matrix)
@@ -68,14 +72,15 @@ int	matrix_biggest_z(t_matrix *mat)
 	return (out);
 }
 
-int	create_trgb(int t, int r, int g, int b)
+int	open_fd_read(char *file_path)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
-}
+	int	fd;
 
-double	my_abs(double in)
-{
-	if (in < 0)
-		return (in * -1);
-	return (in);
+	fd = open(file_path, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_printf("errno: %s\n", strerror(errno));
+		exit(-1);
+	}
+	return (fd);
 }

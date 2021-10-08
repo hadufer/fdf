@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 11:44:34 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 09:10:32 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/08 07:32:51 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void			matrix_destroy(t_matrix *mat);
 int				matrix_biggest_z(t_matrix *mat);
 int				key_handle(int keycode, t_data *img);
 int				create_trgb(int t, int r, int g, int b);
-double			my_abs(double in);
+int				open_fd_read(char *file_path);
 #endif

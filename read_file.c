@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:58:27 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/07 15:23:51 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/08 06:54:28 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,39 +19,34 @@
 #include <errno.h>
 #include <string.h>
 #include <stdio.h>
+#include "ft_printf.h"
 
 void	count_matrix(char *file_path, t_matrix *mat)
 {
 	int		fd;
 	char	*line;
 	char	**line_cut;
-	int		i;
-	int		j;
+	int		i[2];
 
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_printf("errno: %s\n", strerror(errno));
-		exit(-1);
-	}
-	j = 0;
+	fd = open_fd_read(file_path);
+	i[1] = 0;
 	line = get_next_line(fd);
 	while (line)
 	{
 		line_cut = ft_split(line, ' ');
 		free(line);
-		i = 0;
-		while (line_cut[i])
-			i++;
-		if (i > mat->w_matrix)
-			mat->w_matrix = i;
-		while (i >= 0)
-			free(line_cut[i--]);
+		i[0] = 0;
+		while (line_cut[i[0]])
+			i[0]++;
+		if (i[0] > mat->w_matrix)
+			mat->w_matrix = i[0];
+		while (i[0] >= 0)
+			free(line_cut[i[0]--]);
 		line = get_next_line(fd);
 		free(line_cut);
-		j++;
+		i[1]++;
 	}
-	mat->h_matrix = --j;
+	mat->h_matrix = --i[1];
 	close(fd);
 }
 
@@ -60,13 +55,8 @@ void	alloc_matrix(char *file_path, t_matrix *mat)
 	int	fd;
 	int	i;
 
+	fd = open_fd_read(file_path);
 	i = 0;
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_printf("errno: %s\n", strerror(errno));
-		exit(-1);
-	}
 	mat->matrix = malloc(sizeof(int *) * mat->h_matrix);
 	while (i < mat->h_matrix)
 	{
@@ -78,42 +68,36 @@ void	alloc_matrix(char *file_path, t_matrix *mat)
 
 void	fill_matrix(char *file_path, t_matrix *mat)
 {
-	int		i;
-	int		j;
+	int		i[2];
 	int		fd;
 	char	*line;
 	char	**line_cut;
 
-	fd = open(file_path, O_RDONLY);
-	if (fd == -1)
-	{
-		ft_printf("errno: %s\n", strerror(errno));
-		exit(-1);
-	}
+	fd = open_fd_read(file_path);
 	line = get_next_line(fd);
-	i = 0;
+	i[0] = 0;
 	while (line)
 	{
 		line_cut = ft_split(line, ' ');
 		free(line);
-		j = 0;
-		while (line_cut[j])
+		i[1] = 0;
+		while (line_cut[i[1]])
 		{
-			mat->matrix[i][j] = ft_atoi(line_cut[j]);
-			j++;
+			mat->matrix[i[0]][i[1]] = ft_atoi(line_cut[i[1]]);
+			i[1]++;
 		}
-		i++;
-		while (j-- > 0)
-			free(line_cut[j]);
+		i[0]++;
+		while (i[1]-- > 0)
+			free(line_cut[i[1]]);
 		free(line_cut);
 		line = get_next_line(fd);
 	}
 	close(fd);
 }
 
-t_matrix	*init_mat()
+t_matrix	*init_mat(void)
 {
-	t_matrix *mat;
+	t_matrix	*mat;
 
 	mat = malloc(sizeof(t_matrix));
 	mat->matrix = NULL;
@@ -122,34 +106,13 @@ t_matrix	*init_mat()
 	return (mat);
 }
 
-void	debug_print_matrix(t_matrix *mat)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < mat->h_matrix)
-	{
-		j = 0;
-		while (j < mat->w_matrix)
-		{
-			ft_putnbr_fd(mat->matrix[i][j], 1);
-			ft_putchar_fd(' ', 1);
-			j++;
-		}
-		ft_putchar_fd('\n', 1);
-		i++;
-	}
-}
-
 t_matrix	*file_to_matrix(char *file_path)
 {
-	t_matrix *mat;
+	t_matrix	*mat;
 
 	mat = init_mat();
 	count_matrix(file_path, mat);
 	alloc_matrix(file_path, mat);
 	fill_matrix(file_path, mat);
-	debug_print_matrix(mat);
 	return (mat);
 }
