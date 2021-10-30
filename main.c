@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:51:29 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/28 17:35:36 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/30 10:42:00 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	handle_entry_fd(int argc, char **argv)
 	{
 		ft_printf("Please enter a valid file.\nUsage: ./fdf [filename].fdf\n");
 		ft_printf("errno: %s\n", strerror(errno));
-		close(fd);
 		exit(-1);
 	}
 	close(fd);

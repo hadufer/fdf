@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 19:39:09 by hadufer           #+#    #+#             */
-/*   Updated: 2021/09/03 17:33:32 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/23 09:14:05 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-static t_printf	*reset_pf(t_printf *pf)
+static void	reset_pf(t_printf *pf)
 {
 	pf->prec = -1;
 	pf->ladjust = 0;
@@ -29,7 +29,6 @@ static t_printf	*reset_pf(t_printf *pf)
 	pf->capitals = 0;
 	pf->prefix = NULL;
 	pf->truncate = 1;
-	return (pf);
 }
 
 static void	print_last_percent(const char *fmt, size_t *i, t_printf *pf)
@@ -40,7 +39,7 @@ static void	print_last_percent(const char *fmt, size_t *i, t_printf *pf)
 	{
 		while ((size_t)pf->last_percent != *i)
 		{
-			ft_putchar_fd(fmt[pf->last_percent], 1);
+			ft_putchar_fd_count(fmt[pf->last_percent], 1, pf);
 			(pf->last_percent)++;
 		}
 		pf->last_percent = -1;
@@ -49,10 +48,11 @@ static void	print_last_percent(const char *fmt, size_t *i, t_printf *pf)
 
 static int	exit_clean(int i, t_printf	*pf, va_list va_list)
 {
-	if (pf)
-		free(pf);
+	(void)pf;
 	va_end(va_list);
-	return (i);
+	if (i == -1)
+		return (-1);
+	return (pf->return_value);
 }
 
 int	handler_wrapper(size_t *i, t_printf *pf, va_list va_list, const char *fmt)
@@ -74,27 +74,25 @@ int	handler_wrapper(size_t *i, t_printf *pf, va_list va_list, const char *fmt)
 
 int	ft_printf(const char *fmt, ...)
 {
-	t_printf	*pf;
+	t_printf	pf;
 	va_list		va_list;
 	size_t		i;
 
+	pf.return_value = 0;
 	va_start(va_list, fmt);
-	pf = malloc(sizeof(pf));
-	if (!pf)
-		exit_clean(-1, pf, va_list);
 	i = 0;
 	while (fmt[i])
 	{
-		pf = reset_pf(pf);
+		reset_pf(&pf);
 		if (fmt[i] != '%')
-			ft_putchar_fd(fmt[i++], 1);
+			ft_putchar_fd_count(fmt[i++], 1, &pf);
 		else
 		{
-			pf->last_percent = i;
+			pf.last_percent = i;
 			i++;
-			if (handler_wrapper(&i, pf, va_list, fmt) == -1)
-				return (exit_clean(-1, pf, va_list));
+			if (handler_wrapper(&i, &pf, va_list, fmt) == -1)
+				return (exit_clean(-1, &pf, va_list));
 		}
 	}
-	return (exit_clean(i, pf, va_list));
+	return (exit_clean(i, &pf, va_list));
 }

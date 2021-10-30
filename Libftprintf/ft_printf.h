@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 19:38:34 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/30 10:20:25 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/23 09:12:35 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_printf
 	int		width_arg;
 	int		prec_arg;
 	int		last_percent;
+	int		return_value;
 	int		truncate;
 	char	*prefix;
 }			t_printf;
@@ -41,5 +42,6 @@ int			width_handler(const char *fmt, size_t *i, t_printf *pf);
 int			precision_handler(const char *fmt, size_t *i, t_printf *pf);
 int			specifier_handler(const char *fmt, size_t *i, \
 								t_printf *pf, va_list va_list);
-
+void		ft_putchar_fd_count(char c, int fd, t_printf *pf);
+void		ft_putstr_fd_count(char *str, int fd, t_printf *pf);
 #endif
