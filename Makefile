@@ -6,14 +6,14 @@
 #    By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/08 11:44:42 by hadufer           #+#    #+#              #
-#    Updated: 2021/10/30 10:34:32 by hadufer          ###   ########.fr        #
+#    Updated: 2021/10/30 10:50:38 by hadufer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -g
+CFLAGS = -Wall -Werror -Wextra
 
 SRCS =	draw_line.c \
 		draw.c \
