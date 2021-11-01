@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 11:58:27 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/08 06:54:28 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/10/30 16:02:07 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	fill_matrix(char *file_path, t_matrix *mat)
 		line_cut = ft_split(line, ' ');
 		free(line);
 		i[1] = 0;
-		while (line_cut[i[1]])
+		while (line_cut[i[1]] && (i[0] < mat->h_matrix && i[1] < mat->w_matrix))
 		{
 			mat->matrix[i[0]][i[1]] = ft_atoi(line_cut[i[1]]);
 			i[1]++;

@@ -6,14 +6,14 @@
 #    By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/08 11:44:42 by hadufer           #+#    #+#              #
-#    Updated: 2021/10/30 10:50:38 by hadufer          ###   ########.fr        #
+#    Updated: 2021/10/30 12:58:33 by hadufer          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 CC = gcc
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 SRCS =	draw_line.c \
 		draw.c \
@@ -23,17 +23,19 @@ SRCS =	draw_line.c \
 		mlx.c \
 		read_file.c \
 		util.c \
-		util2.c \
+		util2.c
 
 OBJS = $(SRCS:.c=.o)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I/usr/include -I./Libftprintf/Libft -I./Libftprintf -Imlx -c $< -o $@
 
-$(NAME): $(OBJS) libftprintf
+all : $(NAME)
+
+$(NAME): $(OBJS) ./Libftprintf/libftprintf.a
 	$(CC) $(OBJS) -lmlx ./libftprintf/libftprintf.a -framework OpenGL -framework AppKit -o $(NAME)
 
-libftprintf:
+./Libftprintf/libftprintf.a:
 	$(MAKE) -C ./Libftprintf
 
 clean:
@@ -46,4 +48,4 @@ fclean: clean
 
 re: fclean $(NAME)
 
-.PHONY: all clean flcean re libftprintf
+.PHONY: all clean flcean re 

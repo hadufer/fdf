@@ -6,7 +6,7 @@
 /*   By: hadufer <hadufer@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 07:57:25 by hadufer           #+#    #+#             */
-/*   Updated: 2021/10/08 07:28:06 by hadufer          ###   ########.fr       */
+/*   Updated: 2021/11/01 10:45:15 by hadufer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,17 @@
 
 static void	draw_line_util(t_data *d, t_vec2 v2a, t_vec2 v2b, t_vec2 i_j)
 {
-	draw_line(d, v2a, v2b, create_trgb(0,
-			255,
-			255 - (int)(round(d->mat->matrix[i_j.x][i_j.y] / d->draw_max_num)
-				* 255),
-			255 - (int)(round(d->mat->matrix[i_j.x][i_j.y] / d->draw_max_num)
-				* 255)));
+	if (d->draw_max_num)
+		draw_line(d, v2a, v2b, create_trgb(0,
+				255,
+				255
+				- (round((float)d->mat->matrix[i_j.x][i_j.y] / d->draw_max_num
+						* 255)),
+				255
+				- (round((float)d->mat->matrix[i_j.x][i_j.y] / d->draw_max_num
+						* 255))));
+	else
+		draw_line(d, v2a, v2b, create_trgb(0, 255, 255, 255));
 }
 
 void	draw_horizontal_iso(t_data *d, int i, int j)
